@@ -1,5 +1,6 @@
 package geometry;
 
+import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -10,19 +11,20 @@ public class Point extends Geometry {
 	
 	public Point()
 	{
-		this.setType("point");
+		this.setType("Point");
 	}
 	
 	public Point(JSONObject jsonPoint) throws JSONException
 	{
-		this.setType("point");
-		this.x = jsonPoint.getDouble("x");
-		this.y = jsonPoint.getDouble("y");
+		this.setType("Point");
+		JSONArray coordinates = jsonPoint.getJSONArray("coordinates");
+		this.x = (Double) coordinates.get(0);
+		this.y = (Double) coordinates.get(1);
 	}
 	
 	public Point(String wktPoint)
 	{
-		this.setType("point");
+		this.setType("Point");
 		String[] xy = wktPoint.split(" ");
 
 		this.x=Double.parseDouble(xy[0]);
@@ -30,9 +32,14 @@ public class Point extends Geometry {
 	}
 	
 	@Override
-	public String sdoGeometry()
+	public String toSdoGeometry()
 	{
 		return "mdsys.sdo_geometry(2001,NULL,SDO_POINT_TYPE("+this.x+","+this.y+", NULL), NULL, NULL)";
+	}
+
+	@Override
+	public JSONObject toGeoJson() {
+		return null;
 	}
 	
 }

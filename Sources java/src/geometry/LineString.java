@@ -2,21 +2,19 @@ package geometry;
 
 import org.codehaus.jettison.json.JSONObject;
 
-public class Polygon extends Geometry {
+public class LineString extends Geometry {
 	
-	public Polygon()
-	{
-		this.setType("Polygon");
+	public LineString(){
+		this.setType("LineString");
 	}
 	
-	public Polygon(String wktPolygon)
+	public LineString(String wktLine)
 	{
-		this.setType("Polygon");
+		this.setType("LineString");
 	}
 
 	@Override
 	public String toSdoGeometry() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
